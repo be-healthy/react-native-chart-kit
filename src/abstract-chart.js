@@ -30,12 +30,12 @@ class AbstractChart extends Component {
       return height * (val / this.calcScaler(data));
     } else if (min >= 0 && max >= 0) {
       return this.props.fromZero
-        ? height * (val / this.calcScaler(data))
-        : height * ((val - min) / this.calcScaler(data));
+          ? height * (val / this.calcScaler(data))
+          : height * ((val - min) / this.calcScaler(data));
     } else if (min < 0 && max <= 0) {
       return this.props.fromZero
-        ? height * (val / this.calcScaler(data))
-        : height * ((val - max) / this.calcScaler(data));
+          ? height * (val / this.calcScaler(data))
+          : height * ((val - max) / this.calcScaler(data));
     }
   };
 
@@ -66,14 +66,14 @@ class AbstractChart extends Component {
     const { count, width, height, paddingTop, paddingRight } = config;
     return [...new Array(count)].map((_, i) => {
       return (
-        <Line
-          key={Math.random()}
-          x1={paddingRight}
-          y1={(height / 4) * i + paddingTop}
-          x2={width}
-          y2={(height / 4) * i + paddingTop}
-          {...this.getPropsForBackgroundLines()}
-        />
+          <Line
+              key={Math.random()}
+              x1={paddingRight}
+              y1={(height / 4) * i + paddingTop}
+              x2={width}
+              y2={(height / 4) * i + paddingTop}
+              {...this.getPropsForBackgroundLines()}
+          />
       );
     });
   };
@@ -81,14 +81,14 @@ class AbstractChart extends Component {
   renderHorizontalLine = config => {
     const { width, height, paddingTop, paddingRight } = config;
     return (
-      <Line
-        key={Math.random()}
-        x1={paddingRight}
-        y1={height - height / 4 + paddingTop}
-        x2={width}
-        y2={height - height / 4 + paddingTop}
-        {...this.getPropsForBackgroundLines()}
-      />
+        <Line
+            key={Math.random()}
+            x1={paddingRight}
+            y1={height - height / 4 + paddingTop}
+            x2={width}
+            y2={height - height / 4 + paddingTop}
+            {...this.getPropsForBackgroundLines()}
+        />
     );
   };
 
@@ -114,34 +114,34 @@ class AbstractChart extends Component {
 
       if (count === 1) {
         yLabel = `${yAxisLabel}${formatYLabel(
-          data[0].toFixed(decimalPlaces)
+            data[0].toFixed(decimalPlaces)
         )}${yAxisSuffix}`;
       } else {
         const label = this.props.fromZero
-          ? (this.calcScaler(data) / (count - 1)) * i + Math.min(...data, 0)
-          : (this.calcScaler(data) / (count - 1)) * i + Math.min(...data);
+            ? (this.calcScaler(data) / (count - 1)) * i + Math.min(...data, 0)
+            : (this.calcScaler(data) / (count - 1)) * i + Math.min(...data);
         yLabel = `${yAxisLabel}${formatYLabel(
-          label.toFixed(decimalPlaces)
+            label.toFixed(decimalPlaces)
         )}${yAxisSuffix}`;
       }
 
       const x = paddingRight - yLabelsOffset;
       const y =
-        count === 1 && this.props.fromZero
-          ? paddingTop + 4
-          : (height * 3) / 4 - ((height - paddingTop) / count) * i + 12;
+          count === 1 && this.props.fromZero
+              ? paddingTop + 4
+              : (height * 3) / 4 - ((height - paddingTop) / count) * i + 12;
       return (
-        <Text
-          rotation={horizontalLabelRotation}
-          origin={`${x}, ${y}`}
-          key={Math.random()}
-          x={x}
-          textAnchor="end"
-          y={y}
-          {...this.getPropsForLabels()}
-        >
-          {yLabel}
-        </Text>
+          <Text
+              rotation={horizontalLabelRotation}
+              origin={`${x}, ${y}`}
+              key={Math.random()}
+              x={x}
+              textAnchor="end"
+              y={y}
+              {...this.getPropsForLabels()}
+          >
+            {yLabel}
+          </Text>
       );
     });
   };
@@ -173,23 +173,23 @@ class AbstractChart extends Component {
         return null;
       }
       const x =
-        (((width - paddingRight) / labels.length) * i +
-          paddingRight +
-          horizontalOffset) *
-        fac;
+          (((width - paddingRight) / labels.length) * i +
+              paddingRight +
+              horizontalOffset) *
+          fac;
       const y = (height * 3) / 4 + paddingTop + fontSize * 2 + xLabelsOffset;
       return (
-        <Text
-          origin={`${x}, ${y}`}
-          rotation={verticalLabelRotation}
-          key={Math.random()}
-          x={x}
-          y={y}
-          textAnchor={verticalLabelRotation === 0 ? "middle" : "start"}
-          {...this.getPropsForLabels()}
-        >
-          {`${formatXLabel(label)}${xAxisLabel}`}
-        </Text>
+          <Text
+              origin={`${x}, ${y}`}
+              rotation={verticalLabelRotation}
+              key={Math.random()}
+              x={x}
+              y={y}
+              textAnchor={verticalLabelRotation === 0 ? "middle" : "start"}
+              {...this.getPropsForLabels()}
+          >
+            {`${formatXLabel(label)}${xAxisLabel}`}
+          </Text>
       );
     });
   };
@@ -198,18 +198,18 @@ class AbstractChart extends Component {
     const { data, width, height, paddingTop, paddingRight } = config;
     return [...new Array(data.length)].map((_, i) => {
       return (
-        <Line
-          key={Math.random()}
-          x1={Math.floor(
-            ((width - paddingRight) / data.length) * i + paddingRight
-          )}
-          y1={0}
-          x2={Math.floor(
-            ((width - paddingRight) / data.length) * i + paddingRight
-          )}
-          y2={height - height / 4 + paddingTop}
-          {...this.getPropsForBackgroundLines()}
-        />
+          <Line
+              key={Math.random()}
+              x1={Math.floor(
+                  ((width - paddingRight) / data.length) * i + paddingRight
+              )}
+              y1={0}
+              x2={Math.floor(
+                  ((width - paddingRight) / data.length) * i + paddingRight
+              )}
+              y2={height - height / 4 + paddingTop}
+              {...this.getPropsForBackgroundLines()}
+          />
       );
     });
   };
@@ -217,14 +217,14 @@ class AbstractChart extends Component {
   renderVerticalLine = config => {
     const { height, paddingTop, paddingRight } = config;
     return (
-      <Line
-        key={Math.random()}
-        x1={Math.floor(paddingRight)}
-        y1={0}
-        x2={Math.floor(paddingRight)}
-        y2={height - height / 4 + paddingTop}
-        {...this.getPropsForBackgroundLines()}
-      />
+        <Line
+            key={Math.random()}
+            x1={Math.floor(paddingRight)}
+            y1={0}
+            x2={Math.floor(paddingRight)}
+            y2={height - height / 4 + paddingTop}
+            {...this.getPropsForBackgroundLines()}
+        />
     );
   };
 
@@ -236,57 +236,57 @@ class AbstractChart extends Component {
       backgroundGradientTo
     } = config;
     const fromOpacity = config.hasOwnProperty("backgroundGradientFromOpacity")
-      ? config.backgroundGradientFromOpacity
-      : 1.0;
+        ? config.backgroundGradientFromOpacity
+        : 1.0;
     const toOpacity = config.hasOwnProperty("backgroundGradientToOpacity")
-      ? config.backgroundGradientToOpacity
-      : 1.0;
+        ? config.backgroundGradientToOpacity
+        : 1.0;
 
     const fillShadowGradient = config.hasOwnProperty("fillShadowGradient")
-      ? config.fillShadowGradient
-      : this.props.chartConfig.color();
+        ? config.fillShadowGradient
+        : this.props.chartConfig.color();
 
     const fillShadowGradientOpacity = config.hasOwnProperty(
-      "fillShadowGradientOpacity"
+        "fillShadowGradientOpacity"
     )
-      ? config.fillShadowGradientOpacity
-      : 0.1;
+        ? config.fillShadowGradientOpacity
+        : 0.1;
 
     return (
-      <Defs>
-        <LinearGradient
-          id="backgroundGradient"
-          x1="0"
-          y1={height}
-          x2={width}
-          y2={0}
-        >
-          <Stop
-            offset="0"
-            stopColor={backgroundGradientFrom}
-            stopOpacity={fromOpacity}
-          />
-          <Stop
-            offset="1"
-            stopColor={backgroundGradientTo}
-            stopOpacity={toOpacity}
-          />
-        </LinearGradient>
-        <LinearGradient
-          id="fillShadowGradient"
-          x1={0}
-          y1={0}
-          x2={0}
-          y2={height}
-        >
-          <Stop
-            offset="0"
-            stopColor={fillShadowGradient}
-            stopOpacity={fillShadowGradientOpacity}
-          />
-          <Stop offset="1" stopColor={fillShadowGradient} stopOpacity="0" />
-        </LinearGradient>
-      </Defs>
+        <Defs>
+          <LinearGradient
+              id="backgroundGradient"
+              x1="0"
+              y1="0"
+              x2="0"
+              y2={height}
+          >
+            <Stop
+                offset="0"
+                stopColor={backgroundGradientFrom}
+                stopOpacity={fromOpacity}
+            />
+            <Stop
+                offset="1"
+                stopColor={backgroundGradientTo}
+                stopOpacity={toOpacity}
+            />
+          </LinearGradient>
+          <LinearGradient
+              id="fillShadowGradient"
+              x1={0}
+              y1={0}
+              x2={0}
+              y2={height}
+          >
+            <Stop
+                offset="0"
+                stopColor={fillShadowGradient}
+                stopOpacity={fillShadowGradientOpacity}
+            />
+            <Stop offset="1" stopColor={fillShadowGradient} stopOpacity="0" />
+          </LinearGradient>
+        </Defs>
     );
   };
 }
