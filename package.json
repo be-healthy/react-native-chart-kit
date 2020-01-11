@@ -1,7 +1,6 @@
 {
   "name": "@andresangulo/react-native-chart-kit",
-  "version": "1.0.0",
-  "private": true,
+  "version": "1.0.1",
   "description": "Different charts and graphs for react native, forked from indiespirit/react-native-chart-kit@4.2.0",
   "repository": {
     "type": "git",

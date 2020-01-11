@@ -14,7 +14,7 @@ import { LegendItem } from "./legend-item";
 
 class LineChart extends AbstractChart {
   getColor = (dataset, opacity) => {
-    return (dataset.color || this.props.chartConfig.color)(opacity);
+    return (dataset.color || this.props.chartConfig.color(opacity));
   };
 
   getStrokeWidth = dataset => {

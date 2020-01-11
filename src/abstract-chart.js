@@ -4,16 +4,14 @@ import { LinearGradient, Line, Text, Defs, Stop } from "react-native-svg";
 
 class AbstractChart extends Component {
   calcScaler = data => {
-    if (this.props.fromZero) {
-      return Math.max(...data, 0) - Math.min(...data, 0) || 1;
-    } else {
-      return Math.max(...data) - Math.min(...data) || 1;
-    }
+    const max = this.props.max !== undefined ? this.props.max : Math.min(...data, this.props.min);
+    const min = this.props.min !== undefined ? this.props.min : Math.min(...data, this.props.min);
+    return (max - min) || 1;
   };
 
   calcBaseHeight = (data, height) => {
-    const min = Math.min(...data);
-    const max = Math.max(...data);
+    const min = this.props.min !== undefined ? this.props.min : Math.min(...data);
+    const max = this.props.max !== undefined ? this.props.max : Math.max(...data);
     if (min >= 0 && max >= 0) {
       return height;
     } else if (min < 0 && max <= 0) {
@@ -24,18 +22,14 @@ class AbstractChart extends Component {
   };
 
   calcHeight = (val, data, height) => {
-    const max = Math.max(...data);
-    const min = Math.min(...data);
+    const min = this.props.min !== undefined ? this.props.min : Math.min(...data);
+    const max = this.props.max !== undefined ? this.props.max : Math.max(...data);
     if (min < 0 && max > 0) {
       return height * (val / this.calcScaler(data));
     } else if (min >= 0 && max >= 0) {
-      return this.props.fromZero
-          ? height * (val / this.calcScaler(data))
-          : height * ((val - min) / this.calcScaler(data));
+      return height * ((val - min) / this.calcScaler(data));
     } else if (min < 0 && max <= 0) {
-      return this.props.fromZero
-          ? height * (val / this.calcScaler(data))
-          : height * ((val - max) / this.calcScaler(data));
+      return height * ((val - max) / this.calcScaler(data));
     }
   };
 
@@ -117,19 +111,14 @@ class AbstractChart extends Component {
             data[0].toFixed(decimalPlaces)
         )}${yAxisSuffix}`;
       } else {
-        const label = this.props.fromZero
-            ? (this.calcScaler(data) / (count - 1)) * i + Math.min(...data, 0)
-            : (this.calcScaler(data) / (count - 1)) * i + Math.min(...data);
+        const label = (this.calcScaler(data) / (count - 1)) * i + Math.min(...data, this.props.min);
         yLabel = `${yAxisLabel}${formatYLabel(
             label.toFixed(decimalPlaces)
         )}${yAxisSuffix}`;
       }
 
       const x = paddingRight - yLabelsOffset;
-      const y =
-          count === 1 && this.props.fromZero
-              ? paddingTop + 4
-              : (height * 3) / 4 - ((height - paddingTop) / count) * i + 12;
+      const y = (height * 3) / 4 - ((height - paddingTop) / count) * i + 12;
       return (
           <Text
               rotation={horizontalLabelRotation}
