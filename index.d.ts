@@ -78,6 +78,10 @@ export interface LineChartProps {
    */
   withHorizontalLabels?: boolean;
   /**
+   * Show vertical lines
+   */
+  withVerticalLines?: boolean;
+  /**
    * Render charts from 0 not from the minimum value. - default: False.
    */
   fromZero?: boolean;
@@ -141,7 +145,7 @@ export interface LineChartProps {
    * Defines the dot color function that is used to calculate colors of dots in a line chart.
    * Takes `(dataPoint, dataPointIndex)` as arguments.
    */
-  getDotColor?: (dataPoint: any, index: number) => string;
+  getDotColor?: (dataPoint: any, index: number, datasetIndex: number) => string;
   /**
    * Rotation angle of the horizontal labels - default 0 (degrees).
    */
@@ -175,7 +179,15 @@ export interface LineChartProps {
   /**
    * Provide props for a data point dot.
    */
-  getDotProps?: (dataPoint: any, index: number) => object;
+  getDotProps?: (dataPoint: any, index: number, datasetIndex: number) => object;
+  /**
+   * Min number to render from
+   */
+  min?: number;
+  /**
+   * Max number to render to
+   */
+  max?: number;
 }
 
 export class LineChart extends React.Component<LineChartProps> {}
@@ -183,8 +195,8 @@ export class LineChart extends React.Component<LineChartProps> {}
 // ProgressChart
 
 export type ProgressChartData =
-  | Array<number>
-  | { labels: Array<string>; data: Array<number> };
+    | Array<number>
+    | { labels: Array<string>; data: Array<number> };
 export interface ProgressChartProps {
   data: ProgressChartData;
   width: number;
@@ -269,8 +281,8 @@ export interface ContributionGraphProps {
 }
 
 export class ContributionGraph extends React.Component<
-  ContributionGraphProps
-> {}
+    ContributionGraphProps
+    > {}
 
 // AbstractChart
 export class AbstractChart extends React.Component {}
